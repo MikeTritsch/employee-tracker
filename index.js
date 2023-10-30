@@ -1,6 +1,6 @@
 const inquirer = require('inquirer');
 
-const prompts = [
+const initialPrompt = [
   {
     type: 'list',
     message: 'What would you like to do?',
@@ -9,4 +9,31 @@ const prompts = [
   }
 ]
 
-inquirer.prompt(prompts); // We will then take the response of this question and use it in our DB
+
+
+function init() {
+  inquirer.prompt(initialPrompt)
+  .then((response) => {
+
+    if (response.selection === 'View All Employees') {
+      viewAllEmployees();
+    };
+
+    if (response.selection === 'Add Employee') {
+      addEmployee();
+    };
+  })
+};
+
+function viewAllEmployees() {
+  console.log('View All Employees');
+  init();
+};
+
+function addEmployee() {
+  console.log('Add Employee');
+  init();
+}
+
+
+init();
