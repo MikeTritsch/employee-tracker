@@ -1,5 +1,6 @@
 const inquirer = require('inquirer');
 
+// Main Prompt
 const initialPrompt = [
   {
     type: 'list',
@@ -9,6 +10,7 @@ const initialPrompt = [
   }
 ]
 
+// Add Employee Prompt
 const addEmployeePrompt = [
   {
     type: 'input',
@@ -34,6 +36,7 @@ const addEmployeePrompt = [
   }
 ]
 
+// Update Employee Prompt
 const updateEmployeeRolePrompt = [
   {
     type: 'list',
@@ -49,6 +52,7 @@ const updateEmployeeRolePrompt = [
   }
 ]
 
+// Add Role Prompt
 const addRolePrompt = [
   {
     type: 'input',
@@ -68,6 +72,7 @@ const addRolePrompt = [
   }
 ]
 
+// Add Department Prompt
 const addDepartmentPrompt = [
   {
     type: 'input',
@@ -76,7 +81,7 @@ const addDepartmentPrompt = [
   }
 ]
 
-
+// MAIN FUNCTIONALITY
 function init() {
   inquirer.prompt(initialPrompt)
   .then((response) => {
@@ -112,9 +117,10 @@ function init() {
   })
 };
 
+// INQUIRER FUNCTIONS
 function viewAllEmployees() {
   console.log('View All Employees');
-  // Veiw all query statement
+    
   init();
 };
 
@@ -164,4 +170,5 @@ function addDepartmentFnct() {
   });
 };
 
+// APP START
 init();
