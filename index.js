@@ -129,8 +129,11 @@ function addEmployeeFnct() {
 
 function updateEmployeeRole() {
   console.log('Update Employee');
-  inquirer.prompt(updateEmployeeRolePrompt);
-  init();
+  inquirer.prompt(updateEmployeeRolePrompt)
+  .then((response) => {
+    console.log(response);
+    init();
+  });
 };
 
 function viewAllRolesFnct() {
@@ -140,8 +143,11 @@ function viewAllRolesFnct() {
 
 function addRoleFnct() {
   console.log('Add Role');
-  inquirer.prompt(addRolePrompt);
-  init();
+  inquirer.prompt(addRolePrompt)
+  .then((response) => {
+    console.log(response);
+    init();
+  });
 };
 
 function viewAllDepartmentsFnct() {
@@ -151,8 +157,11 @@ function viewAllDepartmentsFnct() {
 
 function addDepartmentFnct() {
   console.log('View All Departments');
-  inquirer.prompt(addDepartmentPrompt);
-  init();
+  inquirer.prompt(addDepartmentPrompt)
+  .then((response) => {
+    console.log(response);
+    init();
+  });
 };
 
 init();
