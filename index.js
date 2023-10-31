@@ -1,6 +1,6 @@
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
-const db = require('./db/index');
+const db = require('./db');
 // require('console.table');
 
 // Main Prompt
