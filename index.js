@@ -77,8 +77,6 @@ const updateEmployeeRolePrompt = [
 ]
 
 
-
-
 function init() {
   inquirer.prompt(initialPrompt)
   .then((response) => {
@@ -90,6 +88,28 @@ function init() {
     if (response.selection === 'Add Employee') {
       addEmployeeFnct();
     };
+
+    if (response.selection === 'Update Employee Role') {
+      updateEmployeeRole();
+    };
+
+    if (response.selection === 'View All Roles') {
+      viewAllRolesFnct();
+    };
+
+    if (response.selection === 'Add Role') {
+      addRoleFnct();
+    };
+
+    if (response.selection === 'View All Departments') {
+      viewAllDepartmentsFnct();
+    };
+
+    if (response.selection === 'Add Department') {
+      addDepartmentFnct();
+    };
+
+
   })
 };
 
@@ -101,7 +121,31 @@ function viewAllEmployees() {
 function addEmployeeFnct() {
   console.log('Add Employee');
   init();
-}
+};
 
+function updateEmployeeRole() {
+  console.log('Update Employee');
+  init();
+};
+
+function viewAllRolesFnct() {
+  console.log('View All Roles');
+  init();
+};
+
+function addRoleFnct() {
+  console.log('Add Role');
+  init();
+};
+
+function viewAllDepartmentsFnct() {
+  console.log('View All Departments');
+  init();
+};
+
+function addDepartmentFnct() {
+  console.log('View All Departments');
+  init();
+};
 
 init();
