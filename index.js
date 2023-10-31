@@ -1,4 +1,7 @@
 const inquirer = require('inquirer');
+const mysql = require('mysql2');
+const db = require('./db/index');
+// require('console.table');
 
 // Main Prompt
 const initialPrompt = [
@@ -120,8 +123,13 @@ function init() {
 // INQUIRER FUNCTIONS
 function viewAllEmployees() {
   console.log('View All Employees');
-    
-  init();
+  db.findAllEmployees()
+  .then(employees => {
+    console.table(employees);
+  })
+  .then(() => {
+    init();
+  })
 };
 
 function addEmployeeFnct() {
