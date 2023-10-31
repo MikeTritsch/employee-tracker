@@ -9,33 +9,6 @@ const initialPrompt = [
   }
 ]
 
-const addDepartmentPrompt = [
-  {
-    type: 'input',
-    message: 'What is the name if the department?',
-    name: 'deptName'
-  }
-]
-
-const addRolePrompt = [
-  {
-    type: 'input',
-    message: 'What is the name of the role?',
-    name: 'roleName'
-  },
-  {
-    type: 'input',
-    message: 'What is the salary of the role?',
-    name: 'rolePay'
-  },
-  {
-    type: 'list',
-    message: 'What would you like to do?',
-    name: 'deptSelect',
-    choices: ['Engineering', 'Customer Service', 'Human Resources/HR'] // Will use thus (some sort of response.deptSelect push)
-  }
-]
-
 const addEmployeePrompt = [
   {
     type: 'input',
@@ -76,6 +49,33 @@ const updateEmployeeRolePrompt = [
   }
 ]
 
+const addRolePrompt = [
+  {
+    type: 'input',
+    message: 'What is the name of the role?',
+    name: 'roleName'
+  },
+  {
+    type: 'input',
+    message: 'What is the salary of the role?',
+    name: 'rolePay'
+  },
+  {
+    type: 'list',
+    message: 'What would you like to do?',
+    name: 'deptSelect',
+    choices: ['Engineering', 'Customer Service', 'Human Resources/HR'] // Will use thus (some sort of response.deptSelect push)
+  }
+]
+
+const addDepartmentPrompt = [
+  {
+    type: 'input',
+    message: 'What is the name if the department?',
+    name: 'deptName'
+  }
+]
+
 
 function init() {
   inquirer.prompt(initialPrompt)
@@ -109,22 +109,27 @@ function init() {
       addDepartmentFnct();
     };
 
-
   })
 };
 
 function viewAllEmployees() {
   console.log('View All Employees');
+  // Veiw all query statement
   init();
 };
 
 function addEmployeeFnct() {
   console.log('Add Employee');
-  init();
+  inquirer.prompt(addEmployeePrompt)
+  .then((response) => {
+    console.log(response);
+    init();
+  })
 };
 
 function updateEmployeeRole() {
   console.log('Update Employee');
+  inquirer.prompt(updateEmployeeRolePrompt);
   init();
 };
 
@@ -135,6 +140,7 @@ function viewAllRolesFnct() {
 
 function addRoleFnct() {
   console.log('Add Role');
+  inquirer.prompt(addRolePrompt);
   init();
 };
 
@@ -145,6 +151,7 @@ function viewAllDepartmentsFnct() {
 
 function addDepartmentFnct() {
   console.log('View All Departments');
+  inquirer.prompt(addDepartmentPrompt);
   init();
 };
 
