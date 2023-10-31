@@ -9,6 +9,74 @@ const initialPrompt = [
   }
 ]
 
+const addDepartmentPrompt = [
+  {
+    type: 'input',
+    message: 'What is the name if the department?',
+    name: 'deptName'
+  }
+]
+
+const addRolePrompt = [
+  {
+    type: 'input',
+    message: 'What is the name of the role?',
+    name: 'roleName'
+  },
+  {
+    type: 'input',
+    message: 'What is the salary of the role?',
+    name: 'rolePay'
+  },
+  {
+    type: 'list',
+    message: 'What would you like to do?',
+    name: 'deptSelect',
+    choices: ['Engineering', 'Customer Service', 'Human Resources/HR'] // Will use thus (some sort of response.deptSelect push)
+  }
+]
+
+const addEmployeePrompt = [
+  {
+    type: 'input',
+    message: 'What is the employee\'s first name?',
+    name: 'firstName'
+  },
+  {
+    type: 'input',
+    message: 'What is the employee\'s last name?',
+    name: 'lastName'
+  },
+  {
+    type: 'list',
+    message: 'What is the employee\'s role?',
+    name: 'addEmployeeRole',
+    choices: ['QA Manager', 'Front-End Developer', 'Director of Customer Relations', 'HR Director', 'Junior Developer', 'Chief People Officer']
+  },
+  {
+    type: 'list',
+    message: 'Who is the employee\'s manager?',
+    name: 'managerEmployee',
+    choices: ['Nathan Mackinnon', 'Cale Makar', 'Mikko Rantanen', 'None']
+  }
+]
+
+const updateEmployeeRolePrompt = [
+  {
+    type: 'list',
+    message: 'Which employee\'s role do you want to update?',
+    name: 'updateRole',
+    choices: ['Nathan MacKinnon', 'Cale Makar', 'Mikko Rantanen', 'Jack Johnson', 'Josh Manson', 'Katie Gaus']
+  },
+  {
+    type: 'list',
+    message: 'Which role do you want to assign the select employee?',
+    name: 'assignNewRole',
+    choices: ['QA Manager', 'Front-End Developer', 'Director of Customer Relations', 'HR Coordinator', 'Project Manager', 'Back-End Developer']
+  }
+]
+
+
 
 
 function init() {
@@ -20,7 +88,7 @@ function init() {
     };
 
     if (response.selection === 'Add Employee') {
-      addEmployee();
+      addEmployeeFnct();
     };
   })
 };
@@ -30,7 +98,7 @@ function viewAllEmployees() {
   init();
 };
 
-function addEmployee() {
+function addEmployeeFnct() {
   console.log('Add Employee');
   init();
 }
