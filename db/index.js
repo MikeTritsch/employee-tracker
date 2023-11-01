@@ -14,6 +14,10 @@ addEmployee(employee) {
   // INSERT INTO, 
 }
 
+findAllDepartments() {
+  return this.connection.query("SELECT * FROM department");
+}
+
 
 
 // function findAllEmployees() {

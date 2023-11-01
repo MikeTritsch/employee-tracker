@@ -179,8 +179,13 @@ function addRoleFnct() {
   });
 };
 
-function viewAllDepartmentsFnct() {
-  console.log('View All Departments');
+async function viewAllDepartmentsFnct() {
+  try {
+    const departments = await db.findAllDepartments();
+    console.table(departments);
+  } catch (error) {
+    console.error("Error while retrieving employees:", error);
+  };
   init();
 };
 
