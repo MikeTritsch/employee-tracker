@@ -194,13 +194,17 @@ async function viewAllDepartmentsFnct() {
   init();
 };
 
-function addDepartmentFnct() {
-  console.log('View All Departments');
-  inquirer.prompt(addDepartmentPrompt)
-  .then((response) => {
-    console.log(response);
+async function addDepartmentFnct() {
+  try {
+    const dept = await inquirer.prompt(addDepartmentPrompt);
+    const departmentName = deptName.name;
+    console.log(departmentName);
+    // const result = await db.addDepartment(departmentName);
+    console.log('Department Added!');
+  } catch (error) {
+    console.error("Error while adding department:", error);
+  };
     init();
-  });
 };
 
 // APP START

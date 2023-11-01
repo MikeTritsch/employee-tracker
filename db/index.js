@@ -11,7 +11,6 @@ findAllEmployees() {
 
 addEmployee(employee) {
   return this.connection.query("INSERT INTO employee SET ?", employee)
-  // INSERT INTO, 
 }
 
 findAllDepartments() {
@@ -22,6 +21,9 @@ findAllRoles() {
   return this.connection.query("SELECT id, title, salary FROM role");
 }
 
+addDepartment(department) {
+  return this.connection.query(`INSERT INTO department (dept_name) VALUES (?)`, [department]);
+}
 
 
 // function findAllEmployees() {
