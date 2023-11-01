@@ -1,3 +1,9 @@
+DROP DATABASE IF EXISTS cuz63tmzt0velfrp;
+
+CREATE DATABASE cuz63tmzt0velfrp;
+
+USE cuz63tmzt0velfrp;
+
 CREATE TABLE department (
   id INT NOT NULL AUTO_INCREMENT,
   dept_name VARCHAR(128) NOT NULL,

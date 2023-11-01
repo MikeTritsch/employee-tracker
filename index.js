@@ -1,6 +1,7 @@
 const inquirer = require('inquirer');
-const mysql = require('mysql2');
+const mysql = require('mysql2/promise');
 const db = require('./db');
+require('mysql2/promise')
 // require('console.table');
 
 // Main Prompt
@@ -121,18 +122,32 @@ function init() {
 };
 
 // INQUIRER FUNCTIONS
-function viewAllEmployees() {
-  console.log('View All Employees');
-  db.findAllEmployees()
-  .then(employees => {
+// function viewAllEmployees() {
+//   console.log('View All Employees');
+//   db.findAllEmployees()
+//   .then(employees => {
+//     console.table(employees);
+//   })
+//   .then(() => {
+//     init();
+//   })
+// };
+
+async function viewAllEmployees() {
+  try {
+    const employees = await db.findAllEmployees();
     console.table(employees);
-  })
-  .then(() => {
-    init();
-  })
+  } catch (error) {
+    console.error("Error while retrieving employees:", error);
+  }
+  init();
 };
 
-function addEmployeeFnct() {
+
+async function addEmployeeFnct() {
+  const roles = await db.viewAllRoles();
+  const employees = await db.findAllEmployees();
+  await addEmployeePrompt
   console.log('Add Employee');
   inquirer.prompt(addEmployeePrompt)
   .then((response) => {
