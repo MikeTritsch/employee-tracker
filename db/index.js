@@ -6,7 +6,7 @@ class DB {
   };
 
 findAllEmployees() {
-  return this.connection.query("SELECT * FROM employee INNER JOIN role ON role.id = employee.id");
+  return this.connection.query("SELECT employee.id, employee.first_name, employee.last_name, role.title AS role_title, role.salary AS salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager, department.dept_name AS department_name FROM employee INNER JOIN role ON employee.role_id = role.id LEFT JOIN employee AS manager ON employee.manager_id = manager.id LEFT JOIN department ON role.department_id = department.id;");
 }
 
 addEmployee(employee) {
