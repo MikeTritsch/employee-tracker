@@ -79,9 +79,9 @@ const addRolePrompt = [
 // Add Department Prompt
 const addDepartmentPrompt = [
   {
-    type: 'input',
-    message: 'What is the name if the department?',
-    name: 'deptName'
+    // type: 'input',
+    message: 'What is the name of the department?',
+    name: 'dept_name'
   }
 ]
 
@@ -196,10 +196,8 @@ async function viewAllDepartmentsFnct() {
 
 async function addDepartmentFnct() {
   try {
-    const dept = await inquirer.prompt(addDepartmentPrompt);
-    const departmentName = deptName.name;
-    console.log(departmentName);
-    // const result = await db.addDepartment(departmentName);
+    const dept_name = await inquirer.prompt(addDepartmentPrompt);
+    await db.addDepartment(dept_name);
     console.log('Department Added!');
   } catch (error) {
     console.error("Error while adding department:", error);

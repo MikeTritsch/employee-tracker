@@ -22,7 +22,7 @@ findAllRoles() {
 }
 
 addDepartment(department) {
-  return this.connection.query(`INSERT INTO department (dept_name) VALUES (?)`, [department]);
+  return this.connection.query("INSERT INTO department SET ?", department);
 }
 
 
