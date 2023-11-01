@@ -165,8 +165,13 @@ function updateEmployeeRole() {
   });
 };
 
-function viewAllRolesFnct() {
-  console.log('View All Roles');
+async function viewAllRolesFnct() {
+  try {
+    const roles = await db.findAllRoles();
+    console.table(roles);
+  } catch (error) {
+    console.error("Error while retrieving roles:", error)
+  };
   init();
 };
 
@@ -184,7 +189,7 @@ async function viewAllDepartmentsFnct() {
     const departments = await db.findAllDepartments();
     console.table(departments);
   } catch (error) {
-    console.error("Error while retrieving employees:", error);
+    console.error("Error while retrieving departments:", error);
   };
   init();
 };

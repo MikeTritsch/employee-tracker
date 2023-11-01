@@ -18,6 +18,10 @@ findAllDepartments() {
   return this.connection.query("SELECT * FROM department");
 }
 
+findAllRoles() {
+  return this.connection.query("SELECT id, title, salary FROM role");
+}
+
 
 
 // function findAllEmployees() {
