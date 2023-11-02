@@ -1,4 +1,7 @@
 const inquirer = require('inquirer');
+const logo = require('asciiart-logo');
+const config = require('./package.json');
+console.log(logo(config).render());
 const mysql = require('mysql2/promise');
 const db = require('./db');
 require('mysql2/promise')
@@ -118,6 +121,11 @@ function init() {
       addDepartmentFnct();
     };
 
+    if (response.selection === 'Quit') {
+      console.log('Goodbye!')
+      process.exit(0);
+    }
+
   })
 };
 
@@ -194,13 +202,40 @@ async function addEmployeeFnct() {
   init();
 }
 
-function updateEmployeeRole() {
-  console.log('Update Employee');
-  inquirer.prompt(updateEmployeeRolePrompt)
-  .then((response) => {
-    console.log(response);
-    init();
+async function updateEmployeeRole() {
+  const employees = await db.findAllEmployees();
+  const employeeChoices = employees.map(({ id, first_name, last_name }) => ({
+    name: `${first_name} ${last_name}`,
+    value: id,
+  }));
+
+  const roles = await db.findAllRoles();
+  const roleChoices = roles.map(({ id, title }) => ({
+    name: title,
+    value: id,
+  }));
+
+  const employeeResponse = await inquirer.prompt({
+    type: "list",
+    name: "employeeId",
+    message: "Which employee do you want to update?",
+    choices: employeeChoices,
   });
+
+  const roleResponse = await inquirer.prompt({
+    type: "list",
+    name: "roleId",
+    message: "Which role do you want to assign to the selected employee?",
+    choices: roleChoices,
+  });
+
+  const employeeId = employeeResponse.employeeId;
+  const roleId = roleResponse.roleId;
+
+  await db.updateEmployeeRole(employeeId, roleId);
+
+  console.log('Employee role updated successfully!');
+  init();
 };
 
 async function viewAllRolesFnct() {
@@ -229,18 +264,18 @@ async function addRoleFnct() {
   ]);
 
   const departmentChoices = departments.map(({ id, dept_name }) => ({
-    name: dept_name, // Assuming department names are stored in 'dept_name'
+    name: dept_name,
     value: id,
   }));
 
   const { departmentId } = await inquirer.prompt({
     type: "list",
-    name: "departmentId", // Change 'roleId' to 'departmentId' for clarity
+    name: "departmentId",
     message: "What department is the role under?",
     choices: departmentChoices,
   });
 
-  role.department_id = departmentId; // Correctly set the 'department_id' property
+  role.department_id = departmentId;
 
   await db.addRole(role);
 

@@ -29,6 +29,10 @@ addRole(role) {
   return this.connection.query("INSERT INTO role SET ?", role);
 }
 
+updateEmployeeRole(employeeId, newRoleId) {
+  return this.connection.query("UPDATE employee SET role_id = ? WHERE id = ?", newRoleId, employeeId);
+}
+
 
 // function findAllEmployees() {
 //   return new Promise((resolve, reject) => {
