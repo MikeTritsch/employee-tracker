@@ -30,7 +30,7 @@ addRole(role) {
 }
 
 updateEmployeeRole(employeeId, newRoleId) {
-  return this.connection.query("UPDATE employee SET role_id = ? WHERE id = ?", newRoleId, employeeId);
+  return this.connection.query("UPDATE employee SET role_id = ? WHERE id = ?", [newRoleId, employeeId]);
 }
 
 

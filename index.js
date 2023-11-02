@@ -103,6 +103,7 @@ function init() {
 
     if (response.selection === 'Update Employee Role') {
       updateEmployeeRole();
+
     };
 
     if (response.selection === 'View All Roles') {
