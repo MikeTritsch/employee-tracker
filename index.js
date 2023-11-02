@@ -192,7 +192,7 @@ async function addEmployeeFnct() {
   await db.addEmployee(employee);
 
   init();
-};
+}
 
 function updateEmployeeRole() {
   console.log('Update Employee');
@@ -214,8 +214,38 @@ async function viewAllRolesFnct() {
 };
 
 async function addRoleFnct() {
+  const departments = await db.findAllDepartments();
+  const roles = await db.findAllRoles();
 
-};
+  const role = await inquirer.prompt([
+    {
+      name: "title",
+      message: "What is the role title?",
+    },
+    {
+      name: "salary",
+      message: "What is the salary of the role?",
+    },
+  ]);
+
+  const departmentChoices = departments.map(({ id, dept_name }) => ({
+    name: dept_name, // Assuming department names are stored in 'dept_name'
+    value: id,
+  }));
+
+  const { departmentId } = await inquirer.prompt({
+    type: "list",
+    name: "departmentId", // Change 'roleId' to 'departmentId' for clarity
+    message: "What department is the role under?",
+    choices: departmentChoices,
+  });
+
+  role.department_id = departmentId; // Correctly set the 'department_id' property
+
+  await db.addRole(role);
+
+  init();
+}
 
 async function viewAllDepartmentsFnct() {
   try {
