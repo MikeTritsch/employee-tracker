@@ -11,10 +11,10 @@ VALUES  ("001", "QA Manager", 80000, 1),
         ("005", "Project Manager", 60000, 1),
         ("006", "Back-End Developer", 75000, 1);
 
-INSERT INTO employee (id, first_name, last_name, role_id, manager_id)
-VALUES  ("001", "Nathan", "MacKinnon", "001", NULL),
-        ("002", "Cale", "Makar", "002", NULL),
-        ("003", "Mikko", "Rantanen", "003", NULL),
-        ("004", "Jack", "Johnson", "004", 1),
-        ("005", "Josh", "Manson", "005", 2),
-        ("006", "Katie", "Gaus", "006", 3);
+INSERT INTO employee (first_name, last_name, role_id, manager_id)
+VALUES  ("Nathan", "MacKinnon", "001", NULL),
+        ("Cale", "Makar", "002", NULL),
+        ("Mikko", "Rantanen", "003", NULL),
+        ("Jack", "Johnson", "004", 1),
+        ("Josh", "Manson", "005", 2),
+        ("Katie", "Gaus", "006", 3);

@@ -19,23 +19,23 @@ const addEmployeePrompt = [
   {
     type: 'input',
     message: 'What is the employee\'s first name?',
-    name: 'firstName'
+    name: 'first_name'
   },
   {
     type: 'input',
     message: 'What is the employee\'s last name?',
-    name: 'lastName'
+    name: 'last_name'
   },
   {
     type: 'list',
     message: 'What is the employee\'s role?',
-    name: 'addEmployeeRole',
-    choices: ['QA Manager', 'Front-End Developer', 'Director of Customer Relations', 'HR Director', 'Junior Developer', 'Chief People Officer']
+    name: 'role_id',
+    choices: ['QA Manager', 'Front-End Developer', 'Director of Customer Relations', 'HR Coordinator', 'Project Manager', 'Back-End Developer']
   },
   {
     type: 'list',
     message: 'Who is the employee\'s manager?',
-    name: 'managerEmployee',
+    name: 'manager_id',
     choices: ['Nathan Mackinnon', 'Cale Makar', 'Mikko Rantanen', 'None']
   }
 ]
@@ -61,18 +61,18 @@ const addRolePrompt = [
   {
     type: 'input',
     message: 'What is the name of the role?',
-    name: 'roleName'
+    name: 'title'
   },
   {
     type: 'input',
     message: 'What is the salary of the role?',
-    name: 'rolePay'
+    name: 'salary'
   },
   {
     type: 'list',
-    message: 'What would you like to do?',
-    name: 'deptSelect',
-    choices: ['Engineering', 'Customer Service', 'Human Resources/HR'] // Will use thus (some sort of response.deptSelect push)
+    message: 'What department is the role under? (Enter the ID number associated with each department)',
+    name: 'department_id',
+    choices: ['Engineering (1)', 'Customer Service (2)', 'Human Resources/HR (3)', 'Legal(4)', 'Sales(5)']
   }
 ]
 
@@ -145,16 +145,56 @@ async function viewAllEmployees() {
 
 
 async function addEmployeeFnct() {
-  const roles = await db.viewAllRoles();
+  const roles = await db.findAllRoles();
   const employees = await db.findAllEmployees();
-  await addEmployeePrompt
-  console.log('Add Employee');
-  inquirer.prompt(addEmployeePrompt)
-  .then((response) => {
-    console.log(response);
-    init();
-  })
-};
+
+  const employee = await inquirer.prompt([
+    {
+      name: "first_name",
+      message: "What is the employee's first name?",
+    },
+    {
+      name: "last_name",
+      message: "What is the employee's last name?",
+    },
+  ]);
+
+  const roleChoices = roles.map(({ id, title }) => ({
+    name: title,
+    value: id,
+  }));
+
+  const { roleId } = await inquirer.prompt({
+    type: "list",
+    name: "roleId",
+    message: "What is the employee's role?",
+    choices: roleChoices,
+  });
+
+  // Set the role_id with the selected roleId
+  employee.role_id = roleId;
+
+  const managerChoices = employees.map(({ id, first_name, last_name }) => ({
+    name: `${first_name} ${last_name}`,
+    value: id,
+  }));
+
+  managerChoices.unshift({ name: "None", value: null });
+
+  const { managerId } = await inquirer.prompt({
+    type: "list",
+    name: "managerId",
+    message: "Who is the employee's manager?",
+    choices: managerChoices,
+  });
+
+  // Set the manager_id with the selected managerId
+  employee.manager_id = managerId;
+
+  await db.addEmployee(employee);
+
+  init();
+}
 
 function updateEmployeeRole() {
   console.log('Update Employee');
@@ -175,13 +215,13 @@ async function viewAllRolesFnct() {
   init();
 };
 
-function addRoleFnct() {
-  console.log('Add Role');
-  inquirer.prompt(addRolePrompt)
-  .then((response) => {
-    console.log(response);
-    init();
-  });
+async function addRoleFnct() {
+  try {
+    const dept_name = await inquirer.prompt(addRolePrompt);
+    db.addRole(dept_name);
+  } catch (error) {
+    console.error("Error while adding role:", error);
+  }
 };
 
 async function viewAllDepartmentsFnct() {

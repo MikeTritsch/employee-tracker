@@ -25,6 +25,10 @@ addDepartment(department) {
   return this.connection.query("INSERT INTO department SET ?", department);
 }
 
+addRole(role) {
+  return this.connection.query("INSERT INTO role SET ?", role);
+}
+
 
 // function findAllEmployees() {
 //   return new Promise((resolve, reject) => {
