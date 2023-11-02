@@ -70,9 +70,9 @@ const addRolePrompt = [
   },
   {
     type: 'list',
-    message: 'What department is the role under? (Enter the ID number associated with each department)',
+    message: 'What department is the role under?',
     name: 'department_id',
-    choices: ['Engineering (1)', 'Customer Service (2)', 'Human Resources/HR (3)', 'Legal(4)', 'Sales(5)']
+    choices: ['Engineering', 'Customer Service', 'Human Resources/HR', 'Legal', 'Sales']
   }
 ]
 
@@ -171,7 +171,6 @@ async function addEmployeeFnct() {
     choices: roleChoices,
   });
 
-  // Set the role_id with the selected roleId
   employee.role_id = roleId;
 
   const managerChoices = employees.map(({ id, first_name, last_name }) => ({
@@ -188,13 +187,12 @@ async function addEmployeeFnct() {
     choices: managerChoices,
   });
 
-  // Set the manager_id with the selected managerId
   employee.manager_id = managerId;
 
   await db.addEmployee(employee);
 
   init();
-}
+};
 
 function updateEmployeeRole() {
   console.log('Update Employee');
@@ -216,12 +214,7 @@ async function viewAllRolesFnct() {
 };
 
 async function addRoleFnct() {
-  try {
-    const dept_name = await inquirer.prompt(addRolePrompt);
-    db.addRole(dept_name);
-  } catch (error) {
-    console.error("Error while adding role:", error);
-  }
+
 };
 
 async function viewAllDepartmentsFnct() {
@@ -244,6 +237,5 @@ async function addDepartmentFnct() {
   };
     init();
 };
-
 // APP START
 init();
