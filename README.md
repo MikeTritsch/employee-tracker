@@ -32,6 +32,8 @@ Terminal Art created via [asciiart-logo](https://www.npmjs.com/package/asciiart-
 
 This application will run on both bash and terminal.
 
+![Database Design](https://github.com/MikeTritsch/employee-tracker/assets/122573481/b0d80732-b1db-4db9-adae-9a0ad172132c)
+
 ## Usage
 
 1. Clone repository from GitHub (See GitHub Repo link at the top of this README)
