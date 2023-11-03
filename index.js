@@ -200,6 +200,7 @@ async function addEmployeeFnct() {
 
   await db.addEmployee(employee);
 
+  console.log('Employee added successfully!');
   init();
 }
 
@@ -280,6 +281,7 @@ async function addRoleFnct() {
 
   await db.addRole(role);
 
+  console.log('Role added successfully!');
   init();
 }
 
