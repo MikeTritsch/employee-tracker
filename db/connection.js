@@ -1,21 +1,9 @@
-// const mysql = require('mysql2');
+// IMPORTS
 require('dotenv').config();
 const util = require('util');
-
-// const db = mysql.createConnection(
-//   {
-//     host: process.env.DB_HOST,
-//     user: process.env.DB_USER,
-//     password: process.env.DB_PASSWORD,
-//     database: process.env.DB_NAME
-//   },
-//   console.log(`Connected to the employee database.`)
-// );
-
-// module.exports = db;
-
 const mysql = require("mysql2");
 
+// DB CONNECTION
 const connection = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -23,10 +11,12 @@ const connection = mysql.createConnection({
   database: process.env.DB_NAME
 });
 
+// ERR HANDLE
 connection.connect(function (err) {
   if (err) throw err;
 });
 
 connection.query = util.promisify(connection.query);
 
+// EXPORTS
 module.exports = connection;

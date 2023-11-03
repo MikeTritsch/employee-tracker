@@ -5,7 +5,6 @@ console.log(logo(config).render());
 const mysql = require('mysql2/promise');
 const db = require('./db');
 require('mysql2/promise')
-// require('console.table');
 
 // Main Prompt
 const initialPrompt = [
@@ -17,72 +16,9 @@ const initialPrompt = [
   }
 ]
 
-// Add Employee Prompt
-const addEmployeePrompt = [
-  {
-    type: 'input',
-    message: 'What is the employee\'s first name?',
-    name: 'first_name'
-  },
-  {
-    type: 'input',
-    message: 'What is the employee\'s last name?',
-    name: 'last_name'
-  },
-  {
-    type: 'list',
-    message: 'What is the employee\'s role?',
-    name: 'role_id',
-    choices: ['QA Manager', 'Front-End Developer', 'Director of Customer Relations', 'HR Coordinator', 'Project Manager', 'Back-End Developer']
-  },
-  {
-    type: 'list',
-    message: 'Who is the employee\'s manager?',
-    name: 'manager_id',
-    choices: ['Nathan Mackinnon', 'Cale Makar', 'Mikko Rantanen', 'None']
-  }
-]
-
-// Update Employee Prompt
-const updateEmployeeRolePrompt = [
-  {
-    type: 'list',
-    message: 'Which employee\'s role do you want to update?',
-    name: 'updateRole',
-    choices: ['Nathan MacKinnon', 'Cale Makar', 'Mikko Rantanen', 'Jack Johnson', 'Josh Manson', 'Katie Gaus']
-  },
-  {
-    type: 'list',
-    message: 'Which role do you want to assign the select employee?',
-    name: 'assignNewRole',
-    choices: ['QA Manager', 'Front-End Developer', 'Director of Customer Relations', 'HR Coordinator', 'Project Manager', 'Back-End Developer']
-  }
-]
-
-// Add Role Prompt
-const addRolePrompt = [
-  {
-    type: 'input',
-    message: 'What is the name of the role?',
-    name: 'title'
-  },
-  {
-    type: 'input',
-    message: 'What is the salary of the role?',
-    name: 'salary'
-  },
-  {
-    type: 'list',
-    message: 'What department is the role under?',
-    name: 'department_id',
-    choices: ['Engineering', 'Customer Service', 'Human Resources/HR', 'Legal', 'Sales']
-  }
-]
-
 // Add Department Prompt
 const addDepartmentPrompt = [
   {
-    // type: 'input',
     message: 'What is the name of the department?',
     name: 'dept_name'
   }
@@ -130,18 +66,7 @@ function init() {
   })
 };
 
-// INQUIRER FUNCTIONS
-// function viewAllEmployees() {
-//   console.log('View All Employees');
-//   db.findAllEmployees()
-//   .then(employees => {
-//     console.table(employees);
-//   })
-//   .then(() => {
-//     init();
-//   })
-// };
-
+// VIEW ALL EMPLOYEES
 async function viewAllEmployees() {
   try {
     const employees = await db.findAllEmployees();
@@ -152,7 +77,7 @@ async function viewAllEmployees() {
   init();
 };
 
-
+// ADD EMPLOYEE
 async function addEmployeeFnct() {
   const roles = await db.findAllRoles();
   const employees = await db.findAllEmployees();
@@ -204,6 +129,7 @@ async function addEmployeeFnct() {
   init();
 }
 
+// UPDATE ROLE
 async function updateEmployeeRole() {
   const employees = await db.findAllEmployees();
   const employeeChoices = employees.map(({ id, first_name, last_name }) => ({
@@ -250,6 +176,7 @@ async function viewAllRolesFnct() {
   init();
 };
 
+// ADD ROLE
 async function addRoleFnct() {
   const departments = await db.findAllDepartments();
   const roles = await db.findAllRoles();
@@ -285,6 +212,7 @@ async function addRoleFnct() {
   init();
 }
 
+// VIEW ALL DEPARTMENTS
 async function viewAllDepartmentsFnct() {
   try {
     const departments = await db.findAllDepartments();
@@ -295,6 +223,7 @@ async function viewAllDepartmentsFnct() {
   init();
 };
 
+// ADD DEPARTMNENT
 async function addDepartmentFnct() {
   try {
     const dept_name = await inquirer.prompt(addDepartmentPrompt);
